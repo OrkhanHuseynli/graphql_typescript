@@ -1,16 +1,19 @@
 import*as express from "express";
 
-import*as graphqlHTTP from "express-graphql";
 import {graphqlSchema} from "./graphql/schema";
-import {graphqlRoot} from "./graphql/root";
+import {RootFactory} from "./graphql/RootFactory";
+import {GraphqlHandlerFactory} from "./graphql/GraphqlHandlerFactory";
+import {Resolvers} from "./graphql/Resolvers";
+import {Repository} from "./graphql/Repository";
 
 
 const app = express();
-app.use('/graphql', graphqlHTTP({
-    schema: graphqlSchema,
-    rootValue: graphqlRoot,
-    graphiql: true,
-}));
+const repository = new Repository();
+const resolvers = new Resolvers(repository);
+const rootFactory = new RootFactory(resolvers);
+const graphqlHandlerFactory = new GraphqlHandlerFactory(graphqlSchema, rootFactory.getRootObject(), true);
+
+app.use('/graphql', graphqlHandlerFactory.getHandler());
 
 
 app.listen(4000);
