@@ -9,7 +9,7 @@ export class RootFactory implements IRootFactory {
         this.resolvers = resolvers
     }
 
-    getRootObject(): Object {
+    create(): Object {
         return {
             user: this.resolvers.getUserResolver,
             hello: () => {

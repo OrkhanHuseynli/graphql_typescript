@@ -11,5 +11,5 @@ export type MiddleWare = (
 ) => Promise<undefined>
 
 export interface IGraphqlHandlerFactory {
-    getHandler():MiddleWare
+    create():MiddleWare
 }
