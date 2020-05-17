@@ -27,7 +27,7 @@ const UserType = new GraphQLObjectType({
     })
 });
 
-export const MyAppSchema = new GraphQLSchema({
+export const graphQLSchema = new GraphQLSchema({
     query: QueryRootType
     // mutation: MyAppMutationRootType
 });
